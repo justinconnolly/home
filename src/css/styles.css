@@ -1,0 +1,141 @@
+.disable-text-selection{
+  -ms-user-select:none;
+  -moz-user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+   user-select:none;
+}
+
+
+/* @keyframes clicked {
+    0% {
+      transform: scale(.3);
+    }
+  
+    50% {
+      transform: scale(1.2);
+    }
+  
+    100% {
+      transform: scale(1.0);
+    }
+} */
+
+@keyframes searching {
+  0% {
+    transform: scale(0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1.0);
+  }
+}
+
+
+
+.queued {
+  animation-name: searching;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  background-color: skyblue;
+}
+
+.seen {
+  background-color: blue;
+}
+
+.path {
+  background-color: yellow;
+}
+.wall {
+  background-color: black;
+}
+.end {
+  background-color:red;
+}
+.start {
+  background-color: green;
+}
+
+/* table {
+  position:absolute;
+  transform: translate(-50%, 0%);
+} */
+
+table, table tbody tr td{
+  border: 1px solid black;
+  border-collapse: separate;
+  /* margin: 0; */
+  padding: 5;
+  margin: auto;
+}
+
+td {
+  height: 25px;
+  width: 25px;
+}
+
+#modal-popup {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* #grid-navbar {
+  align-content: center;
+  display: inline-flex;
+  margin: auto;
+} */
+
+#grid-navbar {
+  /* margin: auto; */
+  /* background-color: "#e7f1ff" */
+  background-color: #e7f1ff;
+  padding: 0;
+  margin: 0;
+}
+
+/* .test {
+  border: 3px solid blue;
+  padding: auto;
+  margin: auto
+} */
+
+/* .center-navbar-buttons {
+  border: 3px solid red;
+  position: relative;
+  top: 30%;
+  left: 0%;
+  transform: translate(0%, -50%);
+} */
+
+
+#begin-search {
+  background-color: skyblue;
+  /* color: white; */
+}
+
+.nav-item{
+  color:white;
+  margin: auto;
+  padding: 0;
+}
+
+.selected {
+  background-color: skyblue;
+}
+
+/* #nav-dropdown-dark-example {
+  background-color: skyblue;
+} */
