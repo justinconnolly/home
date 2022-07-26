@@ -224,7 +224,7 @@ function Grid() {
     <>
          <Navbar id="grid-navbar" className="grid-navbar"> {/*variant="dark" bg="dark" > */}
             <Container>
-            <Navbar.Brand href="#">Navbar</Navbar.Brand>
+            <Navbar.Brand href="#">Algorithm Visualizations</Navbar.Brand>
             <Nav className="me-auto">
             <NavDropdown
                     id="nav-dropdown-dark-example"
@@ -240,7 +240,7 @@ function Grid() {
 
                     ))}
                     </NavDropdown>
-            <Nav.Link onClick={(e) => {begin(e, activeAlgorithm.algo)}} className="nav-item" id="begin-search">Begin search</Nav.Link>
+            <Nav.Link onClick={(e) => {begin(e, activeAlgorithm.algo)}} className="nav-item" id="begin-search">Begin!</Nav.Link>
             <Nav.Link onClick={(e) => {resetBoard()}} className="nav-item">Reset Board</Nav.Link>
             </Nav>
             </Container>
