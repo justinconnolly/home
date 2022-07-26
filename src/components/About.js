@@ -6,15 +6,6 @@ import Grid from './Grid'
 import '../css/styles.css'
 import Links from './Links'
 
-function makeList() {
-  return {
-    // <ul>
-    //   <li> list item
-    //   <li> list item 2
-    // </ul>
-  }
-}
-
 function About() {
   return (
     <div className="App">

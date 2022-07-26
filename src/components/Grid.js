@@ -246,56 +246,7 @@ function Grid() {
             </Container>
         </Navbar>
         <Container className="disable-text-selection test">
-            {/* <Row className="test"> */}
            
-            {/* <Navbar id="grid-navbar"> */}
-                <Col></Col>
-                {/* <Col > */}
-                {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbar-dark-example" />
-                    <Navbar.Collapse id="navbar-dark-example">
-                        <Nav>
-                            <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title="Dropdown"
-                            menuVariant="dark"
-                            >
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                            </NavDropdown>
-
-                            <Button className="grid-navbar" variant="primary" onClick={(e) => {begin(e, activeAlgorithm.algo)}}>Begin {activeAlgorithm.name}</Button>
-                            <Button className="grid-navbar" variant="primary" onClick={(e) => {resetBoard()}}>Reset board</Button>
-
-                        </Nav>
-                    </Navbar.Collapse> */}
-
-
-
-
-
-                    {/* <Dropdown className="grid-navbar-dropdown">
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Algorithm
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {algorithms.map(a => (
-                                <Dropdown.Item key={a.name} onClick={() => {setActiveAlgorithm(a)}}>{a.name}</Dropdown.Item>
-                                // <Dropdown.Item key={a.name} onClick={(e) => {activeAlgorithm = a}}>{a.name}</Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown> */}
-                {/* </Col>
-                <Col ><Button className="grid-navbar" variant="primary" onClick={(e) => {begin(e, activeAlgorithm.algo)}}>Begin {activeAlgorithm.name}</Button></Col>
-                <Col ><Button className="grid-navbar" variant="primary" onClick={(e) => {resetBoard()}}>Reset board</Button></Col>
-                <Col></Col> */}
-                {/* </Navbar> */}
-
-            
-            {/* </Row> */}
             <Row>
                 <Col>
                 <table id="grid">
