@@ -5,7 +5,7 @@ import Viz from './components/Viz';
 import Home from './components/Home'
 import About from './components/About'
 import Links from './components/Links'
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap'
@@ -21,21 +21,21 @@ root.render(
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
         <Nav>
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/visualizer">Visualizer</Nav.Link>
-          <Nav.Link href="/about">About Me</Nav.Link>
+          <Nav.Link href="/home/">Home</Nav.Link>
+          <Nav.Link href="/home/visualizer">Visualizer</Nav.Link>
+          <Nav.Link href="/home/about">About Me</Nav.Link>
         </Nav>     
       </Navbar.Collapse>
       </Container>
     </Navbar>
     </div>
-    <HashRouter>
+    <BrowserRouter basename="/home">
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="visualizer" element={<Viz/>}/>
+        <Route path="/visualizer" element={<Viz/>}/>
         <Route path="/about" element={<About/>}/>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
     <Container>
       <hr/>
       <Links/>
