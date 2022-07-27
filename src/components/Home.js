@@ -2,8 +2,6 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { Container} from 'react-bootstrap'
-import Grid from './Grid'
-import Links from './Links'
 
 function Home() {
   return (

@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+// import './index.css';
 import Viz from './components/Viz';
 import Home from './components/Home'
 import About from './components/About'
 import Links from './components/Links'
+import Sort from './components/Sort'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap'
+import './css/styles.css'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +23,8 @@ root.render(
       <Navbar.Collapse id="navbarScroll">
         <Nav>
           <Nav.Link href="/home/">Home</Nav.Link>
-          <Nav.Link href="/home/visualizer">Visualizer</Nav.Link>
+          <Nav.Link href="/home/visualizer">Pathfinding</Nav.Link>
+          <Nav.Link href="/home/sort">Sorting</Nav.Link>
           <Nav.Link href="/home/about">About Me</Nav.Link>
         </Nav>     
       </Navbar.Collapse>
@@ -34,6 +36,7 @@ root.render(
         <Route path="/" element={<Home/>} />
         <Route path="/visualizer" element={<Viz/>}/>
         <Route path="/about" element={<About/>}/>
+        <Route path="/sort" element={<Sort/>} />
       </Routes>
     </BrowserRouter>
     <Container>

@@ -1,10 +1,8 @@
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import { Navbar, Container} from 'react-bootstrap'
-import Grid from './Grid'
-import '../css/styles.css'
-import Links from './Links'
+import { Container} from 'react-bootstrap'
+// import '../css/styles.css'
 
 function About() {
   return (

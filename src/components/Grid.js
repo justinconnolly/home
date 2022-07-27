@@ -1,4 +1,4 @@
-import { Container, Dropdown, Button, Modal, Navbar, Row, Col, NavDropdown, Nav } from 'react-bootstrap'
+import { Container, Dropdown, Modal, Navbar, Row, Col, NavDropdown, Nav } from 'react-bootstrap'
 import {useEffect, useState} from 'react'
 
 function Grid() {
@@ -246,7 +246,6 @@ function Grid() {
             </Container>
         </Navbar>
         <Container className="disable-text-selection test">
-           
             <Row>
                 <Col>
                 <table id="grid">
