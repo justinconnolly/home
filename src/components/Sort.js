@@ -1,20 +1,24 @@
 import '../App.css';
-import { Container } from 'react-bootstrap'
+import { Container, Nav, Navbar, NavDropdown, Dropdown } from 'react-bootstrap'
 // import '../css/styles.css'
-import useEffect from 'react'
+import {useEffect} from 'react'
 import { useState } from 'react';
 
 function Sort() {
-    // const [moveActive, setMoveActive] = useState(false)
-    // const [firstNode, setFirstNode] = useState()
+    const [activeAlgorithm, setActiveAlgorithm] = useState({name: 'Insertion Sort', algo:insertionSort})
+    let algorithms = [{name: 'Insertion Sort', algo:insertionSort}]
     let moveActive = false;
     let firstNode;
     let arr = [];
     let pairs;
     let step = 0;
     let stopSort = false;
-    // useEffect(() => {console.log("loaded")},[]
-    // )
+    useEffect(() => {
+        placeSquares()
+    }, [])
+    useEffect(() => {
+        resetSort()
+    }, activeAlgorithm)
 
     function shuffle(array) {
         let currentIndex = array.length,  randomIndex;
@@ -124,6 +128,10 @@ function Sort() {
     
     }
     function placeSquares() {
+        arr = []
+        pairs = []
+        step = 0
+        stopSort = true
         document.getElementById("myContainer").innerHTML = ''   
         let pos_x = 50
         let pos_y = 0
@@ -174,6 +182,7 @@ function Sort() {
     }
 
     function runSort() {
+        stopSort = false
         let sortInterval = setInterval(() => {
             if (step === pairs.length || stopSort) {
                 stopSort = false
@@ -184,17 +193,45 @@ function Sort() {
             }
         }, 100)
     }
+    function resetSort() {
+        stopSort = true
+        pairs = []
+        step = 0
+        setTimeout(placeSquares(), 500)
+        // placeSquares()
+    }
+
 
   return (
     <>
-        <p>
+        <Navbar id="grid-navbar" className="grid-navbar"> {/*variant="dark" bg="dark" > */}
+            <Container>
+            <Navbar.Brand href="#">Sorting</Navbar.Brand>
+            <Nav className="me-auto">
+            <NavDropdown
+                    id="nav-dropdown-dark-example"
+                    title={activeAlgorithm.name}
+                    // menuVariant="dark"
+                    // bg="dark"
+                    onToggle={()=> {
+                        document.getElementById("nav-dropdown-dark-example").classList.toggle("selected")
+                    }}
+                    >
+                    {algorithms.map(a => (
+                        // <Dropdown.Item key={a.name} onClick={() => {setActiveAlgorithm(a)}}>{a.name}</Dropdown.Item>
+                        <Dropdown.Item key={a.name} onClick={() => {placeSquares()}}>{a.name}</Dropdown.Item>
 
-        </p>
+                    ))}
+                    </NavDropdown>
+             {/* <Nav.Link onClick={(e) => {begin(e, activeAlgorithm.algo)}} className="nav-item" id="begin-search">Begin!</Nav.Link> */}
+             <Nav.Link onClick={(e) => {runSort()}} className="nav-item" id="begin-search">Begin!</Nav.Link>
+             <Nav.Link onClick={(e) => {stepSort(pairs)}} className="nav-item">Step</Nav.Link>
+             <Nav.Link onClick={(e) => {stopSort = true}} className="nav-item">Stop</Nav.Link>
+             <Nav.Link onClick={(e) => {placeSquares()}} className="nav-item">Reset</Nav.Link>
+            </Nav>
+            </Container>
+        </Navbar>
         <Container>
-        <button onClick={(e) => runSort()}>Sort!</button>
-        <button onClick={(e) => {stopSort = true}}>Stop</button> 
-        <button onClick={(e) => stepSort(pairs)}>Step</button>
-        <button onClick={(e) => placeSquares()}>Reset</button> 
         <div id ="myContainer">
         <div id ="myAnimation"></div>
         </div>

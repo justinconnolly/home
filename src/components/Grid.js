@@ -224,7 +224,7 @@ function Grid() {
     <>
          <Navbar id="grid-navbar" className="grid-navbar"> {/*variant="dark" bg="dark" > */}
             <Container>
-            <Navbar.Brand href="#">Algorithm Visualizations</Navbar.Brand>
+            <Navbar.Brand href="#">Pathfinding</Navbar.Brand>
             <Nav className="me-auto">
             <NavDropdown
                     id="nav-dropdown-dark-example"
