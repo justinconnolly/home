@@ -18,7 +18,7 @@ function Sort() {
     }, [])
     useEffect(() => {
         resetSort()
-    }, activeAlgorithm)
+    }, [activeAlgorithm])
 
     function shuffle(array) {
         let currentIndex = array.length,  randomIndex;
@@ -46,17 +46,11 @@ function Sort() {
     }
     function moveFifty(e) {
         if (!firstNode) {
-            // setFirstNode(e.target)
             firstNode = e.target
         } else {
             switchNodes(firstNode, e.target)
             firstNode = undefined
         }
-        // let node = document.getElementById(e.target.id)
-        // let node2 = document.getElementById(node2_id)
-        // switchNodes(node, node2)
-        // getNodeOffsets()
-        // moveNode(node, -100, 50)
     }
 
     function getNodeOffsets() {
@@ -108,8 +102,6 @@ function Sort() {
                 move_y--
                 node.style.top = initial_y + move_y + 'px'
                 if (move_y === 0) {
-                    // moveActive = false
-
                     clearInterval(moveNode)
                     setTimeout(() => {
                         moveActive = false
@@ -122,11 +114,6 @@ function Sort() {
 
     }
 
-    
-    function myMove(e, final_x, final_y) {
-        placeSquares()
-    
-    }
     function placeSquares() {
         arr = []
         pairs = []
@@ -147,7 +134,6 @@ function Sort() {
             node.style.left = pos_x + 'px'
             node.style.top = pos_y + 'px'
             pos_x = pos_x + 100
-            // node.addEventListener("click",(e => {moveFifty(e)}))
             node.innerHTML = `${arr[i]}`
             box.appendChild(node)
         }
@@ -177,8 +163,6 @@ function Sort() {
             switchNodes(node1, node2)
             step++;
         }
-
-
     }
 
     function runSort() {
