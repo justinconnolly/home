@@ -130,7 +130,8 @@ function Sort() {
             node.innerHTML = `${arr[i]}`
             box.appendChild(node)
         }
-        pairs = insertionSort(arr)
+        // pairs = insertionSort(arr)
+        pairs = activeAlgorithm.algo(arr)
     }
     function insertionSort(arr)  {  
         let i, j, temp;
