@@ -6,18 +6,22 @@ import { useState } from 'react';
 
 function Sort() {
     const [activeAlgorithm, setActiveAlgorithm] = useState({name: 'Insertion Sort', algo:insertionSort, step:insertion_step})
-    let algorithms = [{name: 'Insertion Sort', algo:insertionSort, step:insertion_step}]
+    let algorithms = [{name: 'Insertion Sort', algo:insertionSort, step:insertion_step},
+                    {name: 'Quick Sort', algo:quick_sort, step:quick_step}]
     let moveActive = false;
     let firstNode;
     let arr = [];
-    let pairs;
+    let pairs = [];
+    let quick_sort_steps = []
     let step = 0;
     let stopSort = false;
+    let sortDone = false
     useEffect(() => {
         placeSquares()
     }, [])
+
     useEffect(() => {
-        resetSort()
+        placeSquares()
     }, [activeAlgorithm])
 
     function shuffle(array) {
@@ -48,16 +52,15 @@ function Sort() {
 
     function getNodeOffsets() {
         let node1 = document.getElementById('node-1')
-
         let node2 = document.getElementById('node-2')
         switchNodes(node1, node2)
-
-
     }
 
     function switchNodes(node1, node2) {
-        moveNode(node2, node1.style.left.slice(0, -2) - node2.style.left.slice(0, -2), 50)
-        moveNode(node1, node2.style.left.slice(0, -2) - node1.style.left.slice(0, -2), 50)
+        if (!moveActive) {
+            moveNode(node2, node1.style.left.slice(0, -2) - node2.style.left.slice(0, -2), 50)
+            moveNode(node1, node2.style.left.slice(0, -2) - node1.style.left.slice(0, -2), 50)
+        }
     }
     function moveNode(node, x, y) {
         // let offset = getOffset(node)
@@ -69,7 +72,9 @@ function Sort() {
         let move_x = 0
         let move_y = 0
         let negative_x = false
-        if (x < 0) {negative_x = true}
+        if (x < 0) {
+            negative_x = true
+        }
         let vertical = false
         let horizontal = false
         moveActive = true
@@ -104,7 +109,6 @@ function Sort() {
             }
 
         }, 5)
-
     }
 
     function placeSquares() {
@@ -112,7 +116,7 @@ function Sort() {
         pairs = []
         step = 0
         stopSort = true
-        document.getElementById("myContainer").innerHTML = ''   
+        document.getElementById("myContainer").innerHTML = '' 
         let pos_x = 50
         let pos_y = 0
         let box = document.getElementById("myContainer")
@@ -130,12 +134,13 @@ function Sort() {
             node.innerHTML = `${arr[i]}`
             box.appendChild(node)
         }
-        // pairs = insertionSort(arr)
         pairs = activeAlgorithm.algo(arr)
+        console.log(arr)
     }
-    function insertionSort(arr)  {  
+    function insertionSort()  {  
         let i, j, temp;
-        let pairs = []
+        pairs = []
+        step = 0
         i = 1
         while (i < arr.length) {
             j = i
@@ -150,14 +155,77 @@ function Sort() {
         }
         return pairs
     }
-    function insertion_step(step) {
+    function insertion_step() {
+        if (pairs.length < 1 || step == pairs.length) {
+            sortDone = true;
+            return
+        }
         let node1 = document.getElementById(`node-${pairs[step][0]}`)
         let node2 = document.getElementById(`node-${pairs[step][1]}`)
         switchNodes(node1, node2)
     }
-    function stepSort(pairs) {
-        if (!moveActive) {
-            activeAlgorithm.step(step)
+    function quick_sort() {
+        step = 0
+        pairs = []
+        quickSort(arr)
+    }
+    function quickSort (arr, left = 0, right = arr.length - 1) {
+        if (left >= right || right < 0) {
+            return;
+        }
+          const position = partition(arr, left, right)
+          if (left < position - 1) quickSort(arr, left, position - 1)
+          if (position < right) quickSort(arr, position, right)
+      }
+      
+      function partition (arr, left, right) {
+        const pivot = arr[Math.floor(Math.random() * (right - left - 1) + left)]
+        pairs.push({left: arr[left], right:arr[right], pivot: pivot, switch: false})
+        while (left <= right) {
+          while (arr[left] < pivot) {
+            left++
+            pairs.push({left: arr[left], right:arr[right], pivot: pivot, switch: false})
+          }
+          while (arr[right] > pivot) {
+            right--
+            pairs.push({left: arr[left], right:arr[right], pivot: pivot, switch: false})
+          }
+          if (left <= right) {
+            [arr[left], arr[right]] = [arr[right], arr[left]]
+            pairs.push({left: arr[left], right:arr[right], pivot: pivot, switch: true})
+            left++
+            right--
+            pairs.push({left: arr[left], right:arr[right], pivot: pivot, switch: false})
+          }
+        }
+        return left
+      }
+
+    function quick_step() {
+        if (!pairs || step == pairs.length) {
+            sortDone = true;
+            return
+        }
+        console.log(pairs)
+        let left = document.getElementById(`node-${pairs[step].left}`)
+        let right = document.getElementById(`node-${pairs[step].right}`)
+        let pivot = document.getElementById(`node-${pairs[step].pivot}`)
+        left.classList.toggle("selected")
+        right.classList.toggle("selected")
+        pivot.classList.toggle("pivot")
+        // console.log(left, right, pivot)
+        if (quick_sort_steps[step].switch === true) {
+            switchNodes(left, right)
+        }
+        left.classList.toggle("selected")
+        right.classList.toggle("selected")
+        pivot.classList.toggle("pivot")
+    }
+
+
+    function stepSort() {
+        if (!moveActive && !sortDone) {
+            activeAlgorithm.step()
             step++;
         }
     }
@@ -165,12 +233,15 @@ function Sort() {
     function runSort() {
         stopSort = false
         let sortInterval = setInterval(() => {
-            if (step === pairs.length || stopSort) {
-                stopSort = false
-                clearInterval(sortInterval)
-            }
-            if (!moveActive) {
-                stepSort(pairs)
+            if (sortDone || stopSort) {
+                stopSort = false;
+                sortDone = false;
+                clearInterval(sortInterval);
+            } else if (!moveActive & !sortDone) {
+                activeAlgorithm.step()
+                step++;
+                // stepSort()
+                // activeAlgorithm.step()
             }
         }, 100)
     }
@@ -198,14 +269,14 @@ function Sort() {
                     }}
                     >
                     {algorithms.map(a => (
-                        // <Dropdown.Item key={a.name} onClick={() => {setActiveAlgorithm(a)}}>{a.name}</Dropdown.Item>
-                        <Dropdown.Item key={a.name} onClick={() => {placeSquares()}}>{a.name}</Dropdown.Item>
+                        <Dropdown.Item key={a.name} onClick={() => {setActiveAlgorithm(a)}}>{a.name}</Dropdown.Item>
+                        // <Dropdown.Item key={a.name} onClick={() => {placeSquares()}}>{a.name}</Dropdown.Item>
 
                     ))}
                     </NavDropdown>
              {/* <Nav.Link onClick={(e) => {begin(e, activeAlgorithm.algo)}} className="nav-item" id="begin-search">Begin!</Nav.Link> */}
              <Nav.Link onClick={(e) => {runSort()}} className="nav-item" id="begin-search">Begin!</Nav.Link>
-             <Nav.Link onClick={(e) => {stepSort(pairs)}} className="nav-item">Step</Nav.Link>
+             <Nav.Link onClick={(e) => {stepSort()}} className="nav-item">Step</Nav.Link>
              <Nav.Link onClick={(e) => {stopSort = true}} className="nav-item">Stop</Nav.Link>
              <Nav.Link onClick={(e) => {placeSquares()}} className="nav-item">Reset</Nav.Link>
             </Nav>
