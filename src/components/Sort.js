@@ -5,8 +5,8 @@ import {useEffect} from 'react'
 import { useState } from 'react';
 
 function Sort() {
-    const [activeAlgorithm, setActiveAlgorithm] = useState({name: 'Insertion Sort', algo:insertionSort})
-    let algorithms = [{name: 'Insertion Sort', algo:insertionSort}]
+    const [activeAlgorithm, setActiveAlgorithm] = useState({name: 'Insertion Sort', algo:insertionSort, step:insertion_step})
+    let algorithms = [{name: 'Insertion Sort', algo:insertionSort, step:insertion_step}]
     let moveActive = false;
     let firstNode;
     let arr = [];
@@ -22,19 +22,12 @@ function Sort() {
 
     function shuffle(array) {
         let currentIndex = array.length,  randomIndex;
-      
-        // While there remain elements to shuffle.
         while (currentIndex != 0) {
-      
-          // Pick a remaining element.
           randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
-      
-          // And swap it with the current element.
+          currentIndex--;    
           [array[currentIndex], array[randomIndex]] = [
             array[randomIndex], array[currentIndex]];
-        }
-      
+        }    
         return array;
       }
 
@@ -155,12 +148,15 @@ function Sort() {
             i++
         }
         return pairs
-    } 
+    }
+    function insertion_step(step) {
+        let node1 = document.getElementById(`node-${pairs[step][0]}`)
+        let node2 = document.getElementById(`node-${pairs[step][1]}`)
+        switchNodes(node1, node2)
+    }
     function stepSort(pairs) {
         if (!moveActive) {
-            let node1 = document.getElementById(`node-${pairs[step][0]}`)
-            let node2 = document.getElementById(`node-${pairs[step][1]}`)
-            switchNodes(node1, node2)
+            activeAlgorithm.step(step)
             step++;
         }
     }
@@ -182,7 +178,6 @@ function Sort() {
         pairs = []
         step = 0
         setTimeout(placeSquares(), 500)
-        // placeSquares()
     }
 
 
