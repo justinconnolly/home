@@ -29,7 +29,8 @@ function Sort() {
         arr = [];
         pairs = [];
         step = 0;
-        sorted = false;;
+        sorted = false;
+        // stopSort = true
         document.getElementById("sortContainer").innerHTML = '';
         // let pos_x = 50
         // let pos_y = 0
@@ -99,9 +100,6 @@ function Sort() {
     }
 
     function doSort() {
-        if (sorted || searchActive) {
-            return
-        }
         let step = 0
         searchActive = true;
         let sortInterval = setInterval(() => {
@@ -195,11 +193,16 @@ function Sort() {
              <Nav.Link onClick={(e) => {placeSquares()}} className="nav-item">Reset</Nav.Link>
              {/* <Nav.Link onClick={(e) => {swapHeights()}} className="nav-item">SWAP</Nav.Link> */}
              <Nav.Link onClick={(e) => {
-                                insertionSort()
-                                doSort()}} className="nav-item">Insertion Sort</Nav.Link>
-                                             <Nav.Link onClick={(e) => {
-                                quick_sort()
-                                doSort()}} className="nav-item">Quick Sort</Nav.Link>
+                                if (!searchActive) {
+                                    insertionSort()
+                                    doSort()
+                                }
+                                }} className="nav-item">Insertion Sort</Nav.Link>
+            <Nav.Link onClick={(e) => {
+                                if (!searchActive) {
+                                    quick_sort()
+                                    doSort()
+                                }}} className="nav-item">Quick Sort</Nav.Link>
             </Nav>
             </Container>
         </Navbar>
