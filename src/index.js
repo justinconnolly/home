@@ -5,7 +5,7 @@ import Viz from './components/Viz';
 import Home from './components/Home'
 import About from './components/About'
 import Links from './components/Links'
-import Sort from './components/Sort'
+import Sort from './components/new-sort'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap'
