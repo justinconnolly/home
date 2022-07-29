@@ -10,6 +10,7 @@ function Grid() {
     const [searchActive, setSearchActive] = useState(false)
     const [mouseDown, setMouseDown] = useState(false)
     const [notFound, setNotFound] = useState(false)
+    const [instructions, setInstructions] = useState(true)
 
     useEffect(() => {
         resetBoard()
@@ -251,6 +252,10 @@ function Grid() {
                 <table id="grid">
                     <Modal id="modal-popup" show={notFound} onHide={() => setNotFound(false)}>
                         <Modal.Header closeButton>No possible path! Remove some walls or reset the board.</Modal.Header>
+                    </Modal>
+                    <Modal id="modal-popup" show={instructions} onHide={() => setInstructions(false)} closeButton>
+                        <Modal.Header closeButton><h3>Pathfinding</h3></Modal.Header>
+                        <Modal.Body>Click a square (or click and drag) to create or destroy a walls, then select a pathfinding algorithm and enjoy the magic.</Modal.Body>
                     </Modal>
                     <tbody>
                         {Array.from({length: size}, (v, i) => (`${i}`)).map(row => (
