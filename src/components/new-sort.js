@@ -5,63 +5,58 @@ import {useEffect} from 'react'
 import { useState } from 'react';
 
 function Sort() {
-    const [activeAlgorithm, setActiveAlgorithm] = useState({name: 'Insertion Sort', algo:insertionSort})
-    let algorithms = [{name: 'Insertion Sort', algo:insertionSort},
-                    {name: 'Quick Sort', algo:quick_sort}]
-    let arr;
-    let qs_pairs = []
-    let is_pairs = []
-    let cs_pairs = []
-    let pairs;
+    let arr, step;
     let sorted = false;
-    let step;
     let searchActive = false;
     let stopSort = false
     let numBars = 50;
+    let sorts = {
+        cyclic: {
+            algorithm: cyclicSort,
+            pairs: [],
+            unsorted: []
+        },
+        quick: {
+            algorithm: quick_sort,
+            pairs: [],
+            unsorted: []
+        },
+        insertion: {
+            algorithm: insertionSort,
+            pairs: [],
+            unsorted: []
+        }
+    };
 
     useEffect(() => {
         placeSquares()
     }, [])
-
-    useEffect(() => {
-        placeSquares()
-    }, [activeAlgorithm])
-
  
-    // maybe just call sort algorithms here and doSort() can literally just... do sort. Also fewer global arrays
+    // maybe just call sort algorithms here and doSort() can literally just... do sort
     function placeSquares() {
         arr = [];
-        pairs = [];
-        qs_pairs = []
-        is_pairs = []
-        // step = 0;
+        step = 0;
         sorted = false;
         // stopSort = true
         searchActive = false
         document.getElementById("sortContainer").innerHTML = '';
         let container = document.getElementById("sortContainer")
-        let sorts = ["cs", "qs", "is"]
         for (let i = 0; i < numBars; i++) {
             arr.push(i);
         }
         shuffle(arr);
-        for (let j = 0; j < sorts.length; j++) {
+        for (let sort in sorts) {
             let table = document.createElement("table");
-            table.style.height = '250px'
-            table.style.width = '50%'
-            // table.height = `500px`
             let row = document.createElement("tr");
-            row.id = `sort-row-${sorts[j]}`;
+            row.id = `sort-row-${sorts[sort]}`;
             for (let i = 0; i < numBars; i++) {
                 let col = document.createElement("td");
                 col.classList.add("sort-col");
 
                 let div = document.createElement("div")
                 div.classList.add("bar")
-                // div.style.background = 'blue'
                 div.style.height = `${((arr[i]+ 1) / numBars) * 100}%`
-                div.id = `${sorts[j]}-bar-${i}`
-                // col.appendChild(top)
+                div.id = `${sort}-bar-${i}`
                 col.appendChild(div)
                 row.appendChild(col)
             }
@@ -94,7 +89,7 @@ function Sort() {
         while (i < A.length) {
             j = i
             while (j > 0 && A[j - 1] > A[j]) {
-                is_pairs.push([j,j-1])
+                sorts.insertion.pairs.push([j,j-1])
                 temp = A[j]
                 A[j] = A[j - 1]
                 A[j - 1] = temp
@@ -110,43 +105,22 @@ function Sort() {
             j = A[i]
             if (A[i] !== A[j]) {
                 [A[i], A[j]] = [A[j], A[i]]
-                cs_pairs.push([i,j])
+                sorts.cyclic.pairs.push([i,j])
             }
             else {
                 i++;
             }
         }
-        return A
     }
 
-    // first if isn't going off for some reason, but the interval is stopping
     function doSort() {
         if (sorted) {
             return
         }
-
-        let sorts = {
-            quick: {
-                unsorted: [...arr],
-                algorithm: quick_sort,
-                prefix: 'qs',
-                pairs: qs_pairs
-            },
-            insertion: {
-                unsorted: [...arr],
-                algorithm: insertionSort,
-                prefix: 'is',
-                pairs: is_pairs
-            },
-            cyclic: {
-                unsorted: [...arr],
-                algorithm: cyclicSort,
-                prefix: 'cs',
-                pairs: cs_pairs
-            }
-        }
         let max_length = 0
         for (let sort in sorts) {
+            sorts[sort].pairs = []
+            sorts[sort].unsorted = [...arr]
             sorts[sort].algorithm(sorts[sort].unsorted)
             max_length = Math.max(sorts[sort].pairs.length, max_length)
         }
@@ -156,7 +130,7 @@ function Sort() {
             for (let sort in sorts) {
                 if (step == sorts[sort].pairs.length) {
                     for (let i = 0; i < sorts[sort].unsorted.length; i++) {
-                        let bar = document.getElementById(`${sorts[sort].prefix}-bar-${i}`)
+                        let bar = document.getElementById(`${sort}-bar-${i}`)
                         bar.classList.toggle("bar")
                         bar.classList.add("complete")
                     }
@@ -169,7 +143,7 @@ function Sort() {
             }
             for (let sort in sorts) {
                 if (step < sorts[sort].pairs.length) {
-                    swapHeights(sorts[sort].pairs[step][0], sorts[sort].pairs[step][1], sorts[sort].prefix)
+                    swapHeights(sorts[sort].pairs[step][0], sorts[sort].pairs[step][1], sort)
                 }
             }
             step++;
@@ -192,64 +166,59 @@ function Sort() {
     }
 
     function quick_sort(qs_arr) {
-        pairs = []
-        quickSort(qs_arr, 0, qs_arr.length - 1)
+        quickSort(qs_arr, 0, sorts.quick.unsorted.length - 1)
     }
     function quickSort (A, left, right) {
         if (left >= right || right < 0) {
             return;
         }
-          const position = partition(A, left, right)
-          if (left < position - 1) quickSort(A, left, position - 1)
-          if (position < right) quickSort(A, position, right)
+        const position = partition(A, left, right)
+        if (left < position - 1) {
+            quickSort(A, left, position - 1)
+        }
+        if (position < right) {
+            quickSort(A, position, right)
+        }
       }
       
       function partition (A, left, right) {
         const pivot = A[Math.floor(Math.random() * (right - left - 1) + left)]
         while (left <= right) {
-          while (A[left] < pivot) {
-            left++
-
-          }
-          while (A[right] > pivot) {
-            right--
-
-          }
-          if (left <= right) {
-            [A[left], A[right]] = [A[right], A[left]]
-            qs_pairs.push([left, right])
-            left++
-            right--
-
-          }
+            while (A[left] < pivot) {
+                left++
+            }
+            while (A[right] > pivot) {
+                right--
+            }
+            if (left <= right) {
+                [A[left], A[right]] = [A[right], A[left]]
+                sorts.quick.pairs.push([left, right])
+                left++
+                right--
+            }
         }
         return left
       }
 
   return (
     <>
-        <Navbar id="grid-navbar" className="grid-navbar"> {/*variant="dark" bg="dark" > */}
+        <Navbar id="grid-navbar" className="grid-navbar">
             <Container>
             <Navbar.Brand href="#">Sorting</Navbar.Brand>
             <Nav className="me-auto">
-             <Nav.Link onClick={(e) => {
-                if (!searchActive) {
-                    placeSquares()
-                }
-
-                }} className="nav-item">Reset</Nav.Link>
-             <Nav.Link onClick={(e) => {
+            <Nav.Link onClick={(e) => {
                 if (!searchActive) {
                     doSort()
-                }
-                                    // doSort()
-                                }} className="nav-item">Sort</Nav.Link>
+                }}} className="nav-item" id="begin-search">Begin!</Nav.Link>
+            <Nav.Link onClick={(e) => {
+                if (!searchActive) {
+                    placeSquares()
+                }}} className="nav-item">Reset</Nav.Link>
             </Nav>
             </Container>
         </Navbar>
         <Container>
         <div id ="sortContainer">
-        {/* <div id ="myAnimation"></div> */}
         </div>
         </Container>
     </>

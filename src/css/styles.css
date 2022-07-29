@@ -166,6 +166,11 @@ td {
   padding: 1
 }
 
+table {
+  height: 200px;
+  width: 25%
+}
+
 .bar:after {
   content: '\A';
   position: absolute;
