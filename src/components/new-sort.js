@@ -11,6 +11,7 @@ function Sort() {
     let arr;
     let qs_pairs = []// qs_steps;
     let is_pairs = []
+    let cs_pairs = []
     // let is_pairs, is_steps;
     let pairs;
     let sorted = false;
@@ -39,12 +40,13 @@ function Sort() {
         searchActive = false
         document.getElementById("sortContainer").innerHTML = '';
         let container = document.getElementById("sortContainer")
-        let sorts = ["qs", "is"]
+        let sorts = ["cs", "qs", "is"]
         for (let i = 0; i < numBars; i++) {
             arr.push(i);
         }
         shuffle(arr);
         for (let j = 0; j < sorts.length; j++) {
+            console.log(sorts[j])
             let table = document.createElement("table");
             table.style.height = '250px'
             table.style.width = '50%'
@@ -103,14 +105,32 @@ function Sort() {
             i++
         }
     }
-
+    function cyclic_sort(A) {
+        let i = 0;
+        let j;
+        while (i < A.length) {
+            j = A[i]
+            if (A[i] !== A[j]) {
+                [A[i], A[j]] = [A[j], A[i]]
+                cs_pairs.push([i,j])
+            }
+            else {
+                i++;
+            }
+        }
+        console.log(A)
+        return A
+    }
 
     // first if isn't going off for some reason, but the interval is stopping
     function doSort() {
         let is_arr = [...arr]
         let qs_arr = [...arr]
+        let cs_arr = [...arr]
         insertionSort(is_arr)
         quick_sort(qs_arr)
+        cyclic_sort(cs_arr)
+        console.log(cs_pairs);
         let step = 0
         let max_length = Math.max(is_pairs.length, qs_pairs.length)
         searchActive = true;
@@ -129,6 +149,13 @@ function Sort() {
                     bar.classList.add("complete")
                 }
             }
+            if (step === cs_pairs.length) {
+                for (let i = 0; i < qs_arr.length; i++) {
+                    let bar = document.getElementById(`cs-bar-${i}`)
+                    bar.classList.toggle("bar")
+                    bar.classList.add("complete")
+                }
+            }
             if (step == max_length) {
                 sorted = true;
                 searchActive = false;
@@ -140,35 +167,12 @@ function Sort() {
             if (step < qs_pairs.length) {
                 swapHeights(qs_pairs[step][0], qs_pairs[step][1], 'qs')
             }
+            if (step < cs_pairs.length) {
+                swapHeights(cs_pairs[step][0], cs_pairs[step][1], 'cs')
+            }
             step++;
         }, 50)
     }
-
-    // function qsSort() {
-    //     let qs_step = 0
-    //     let sortInterval = setInterval(() => {
-    //         if (qs_step == qs_pairs.length - 1) {
-    //             sorted = true;
-    //             searchActive = false;
-    //             clearInterval(sortInterval)
-    //         }
-    //         swapHeights(qs_pairs[qs_step][0], qs_pairs[qs_step][1], 'qs')
-    //         qs_step++;
-    //     }, 50)
-    // }
-
-    // function isSort() {
-    //     let is_step = 0
-    //     let sortInterval = setInterval(() => {
-    //         if (is_step == is_pairs.length - 1) {
-    //             sorted = true;
-    //             searchActive = false;
-    //             clearInterval(sortInterval)
-    //         }
-    //         swapHeights(is_pairs[is_step][0], qs_pairs[is_step][1], 'is')
-    //         step++;
-    //     }, 50)
-    // }
 
     function checkIfSorted() {
         let row = document.getElementById("sort-row")
