@@ -1,5 +1,5 @@
 import '../App.css';
-import { Container, Nav, Navbar, NavDropdown, Dropdown } from 'react-bootstrap'
+import { Container, Nav, Navbar, Modal, Dropdown } from 'react-bootstrap'
 // import '../css/styles.css'
 import {useEffect} from 'react'
 import { useState } from 'react';
@@ -14,17 +14,26 @@ function Sort() {
         cyclic: {
             algorithm: cyclicSort,
             pairs: [],
-            unsorted: []
+            unsorted: [],
+            complete: false
         },
         quick: {
             algorithm: quick_sort,
             pairs: [],
-            unsorted: []
+            unsorted: [],
+            complete: false
+        },
+        heap: {
+            algorithm: heapSort,
+            pairs: [],
+            unsorted: [],
+            complete: false
         },
         insertion: {
             algorithm: insertionSort,
             pairs: [],
-            unsorted: []
+            unsorted: [],
+            complete: false
         }
     };
 
@@ -47,8 +56,9 @@ function Sort() {
         shuffle(arr);
         for (let sort in sorts) {
             let table = document.createElement("table");
+            table.classList.add("sort")
             let row = document.createElement("tr");
-            row.id = `sort-row-${sorts[sort]}`;
+            row.id = `sort-row-${sort}`;
             for (let i = 0; i < numBars; i++) {
                 let col = document.createElement("td");
                 col.classList.add("sort-col");
@@ -82,36 +92,6 @@ function Sort() {
         bar1.style.height = bar2.style.height
         bar2.style.height = bar1Height
     }
-   
-    function insertionSort(A)  {  
-        let i, j, temp;
-        i = 1
-        while (i < A.length) {
-            j = i
-            while (j > 0 && A[j - 1] > A[j]) {
-                sorts.insertion.pairs.push([j,j-1])
-                temp = A[j]
-                A[j] = A[j - 1]
-                A[j - 1] = temp
-                j--
-            }
-            i++
-        }
-    }
-    function cyclicSort(A) {
-        let i = 0;
-        let j;
-        while (i < A.length) {
-            j = A[i]
-            if (A[i] !== A[j]) {
-                [A[i], A[j]] = [A[j], A[i]]
-                sorts.cyclic.pairs.push([i,j])
-            }
-            else {
-                i++;
-            }
-        }
-    }
 
     function doSort() {
         if (sorted) {
@@ -133,6 +113,7 @@ function Sort() {
                         let bar = document.getElementById(`${sort}-bar-${i}`)
                         bar.classList.toggle("bar")
                         bar.classList.add("complete")
+                        sorts[sort].complete = true;
                     }
                 }
             }
@@ -164,6 +145,38 @@ function Sort() {
         }
         return true
     }
+   
+    function insertionSort(A)  {  
+        let i, j, temp;
+        i = 1
+        while (i < A.length) {
+            j = i
+            while (j > 0 && A[j - 1] > A[j]) {
+                sorts.insertion.pairs.push([j,j-1])
+                temp = A[j]
+                A[j] = A[j - 1]
+                A[j - 1] = temp
+                j--
+            }
+            i++
+        }
+    }
+    function cyclicSort(A) {
+        let i = 0;
+        let j;
+        while (i < A.length) {
+            j = A[i]
+            if (A[i] !== A[j]) {
+                [A[i], A[j]] = [A[j], A[i]]
+                sorts.cyclic.pairs.push([i,j])
+            }
+            else {
+                i++;
+            }
+        }
+    }
+
+
 
     function quick_sort(qs_arr) {
         quickSort(qs_arr, 0, sorts.quick.unsorted.length - 1)
@@ -198,6 +211,47 @@ function Sort() {
             }
         }
         return left
+      }
+
+      function heapify(A, length, i) {
+        let largest = i
+        const left = i * 2 + 1
+        const right = left + 1
+      
+        if (left < length && A[left] > A[largest]) {
+          largest = left
+        }
+      
+        if (right < length && A[right] > A[largest]) {
+          largest = right
+        }
+      
+        if (largest !== i) {
+          [A[i], A[largest]] = [A[largest], A[i]]
+          sorts.heap.pairs.push([largest, i])
+          heapify(A, length, largest)
+        }
+      
+        return A
+      }
+      
+      function heapSort(A) {
+        const length = A.length
+        let i = Math.floor(length / 2 - 1)
+        let k = length - 1
+      
+        while (i >= 0) {
+          heapify(A, length, i)
+          i--
+        }
+      
+        while (k >= 0) {
+          [A[0], A[k]] = [A[k], A[0]]
+          sorts.heap.pairs.push([0, k])
+          heapify(A, k, 0)
+          k--
+        }
+        // return A
       }
 
   return (
