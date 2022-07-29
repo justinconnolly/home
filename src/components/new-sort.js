@@ -227,45 +227,18 @@ function Sort() {
             <Container>
             <Navbar.Brand href="#">Sorting</Navbar.Brand>
             <Nav className="me-auto">
-            {/* <NavDropdown
-                    id="nav-dropdown-dark-example"
-                    title={activeAlgorithm.name}
-                    // menuVariant="dark"
-                    // bg="dark"
-                    onToggle={()=> {
-                        document.getElementById("nav-dropdown-dark-example").classList.toggle("selected")
-                    }}
-                    >
-                    {algorithms.map(a => (
-                        <Dropdown.Item key={a.name} onClick={() => {setActiveAlgorithm(a)
-                        console.log(activeAlgorithm)}}>{a.name}</Dropdown.Item>
-                        // <Dropdown.Item key={a.name} onClick={() => {placeSquares()}}>{a.name}</Dropdown.Item>
-
-                    ))}
-                    </NavDropdown> */}
-             {/* <Nav.Link onClick={(e) => {begin(e, activeAlgorithm.algo)}} className="nav-item" id="begin-search">Begin!</Nav.Link> */}
-             {/* <Nav.Link onClick={(e) => {runSort()}} className="nav-item" id="begin-search">Begin!</Nav.Link>
-             <Nav.Link onClick={(e) => {stepSort()}} className="nav-item">Step</Nav.Link> */}
-             {/* <Nav.Link onClick={(e) => {placeSquares()}} className="nav-item">Stop</Nav.Link> */}
              <Nav.Link onClick={(e) => {
                 if (!searchActive) {
                     placeSquares()
                 }
 
                 }} className="nav-item">Reset</Nav.Link>
-             {/* <Nav.Link onClick={(e) => {swapHeights()}} className="nav-item">SWAP</Nav.Link> */}
              <Nav.Link onClick={(e) => {
-                                // if (!searchActive) {
-                                    // insertionSort()
-                                    // quick_sort()
-                                    doSort()
-                                // }
-                                }} className="nav-item">Sort</Nav.Link>
-            {/* <Nav.Link onClick={(e) => {
-                                if (!searchActive) {
-                                    // quick_sort()
+                if (!searchActive) {
+                    doSort()
+                }
                                     // doSort()
-                                }}} className="nav-item">Quick Sort</Nav.Link> */}
+                                }} className="nav-item">Sort</Nav.Link>
             </Nav>
             </Container>
         </Navbar>
