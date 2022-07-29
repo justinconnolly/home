@@ -45,14 +45,14 @@ function Sort() {
         }
         shuffle(arr);
         for (let j = 0; j < sorts.length; j++) {
- 
             let table = document.createElement("table");
+            table.style.height = '250px'
+            table.style.width = '50%'
             // table.height = `500px`
             let row = document.createElement("tr");
             row.id = `sort-row-${sorts[j]}`;
             for (let i = 0; i < numBars; i++) {
                 let col = document.createElement("td");
-                col.style.height = '500px';
                 col.classList.add("sort-col");
 
                 let div = document.createElement("div")
@@ -67,8 +67,6 @@ function Sort() {
             table.appendChild(row)
             container.appendChild(table)
         }
-        // insertionSort()
-        // sortAlgorithm()
     }
     function shuffle(array) {
         let currentIndex = array.length,  randomIndex;
@@ -117,14 +115,28 @@ function Sort() {
         let max_length = Math.max(is_pairs.length, qs_pairs.length)
         searchActive = true;
         let sortInterval = setInterval(() => {
-            if (step == max_length - 1) {
+            if (step === is_pairs.length) {
+                for (let i = 0; i < is_arr.length; i++) {
+                    let bar = document.getElementById(`is-bar-${i}`)
+                    bar.classList.toggle("bar")
+                    bar.classList.add("complete")
+                }
+            }
+            if (step === qs_pairs.length) {
+                for (let i = 0; i < qs_arr.length; i++) {
+                    let bar = document.getElementById(`qs-bar-${i}`)
+                    bar.classList.toggle("bar")
+                    bar.classList.add("complete")
+                }
+            }
+            if (step == max_length) {
                 sorted = true;
                 searchActive = false;
                 clearInterval(sortInterval)
             }
             if (step < is_pairs.length) {
                 swapHeights(is_pairs[step][0], is_pairs[step][1], 'is')
-            }
+            } 
             if (step < qs_pairs.length) {
                 swapHeights(qs_pairs[step][0], qs_pairs[step][1], 'qs')
             }

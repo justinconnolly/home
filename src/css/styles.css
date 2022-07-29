@@ -162,6 +162,10 @@ code {
   position: relative;
 }
 
+td {
+  padding: 1
+}
+
 .bar:after {
   content: '\A';
   position: absolute;
@@ -169,5 +173,9 @@ code {
   top: 0;
   bottom: 0;
   width: 100%;
-  height: 10px;
+  height: 5px;
+}
+
+.complete {
+  background: lawngreen;
 }
