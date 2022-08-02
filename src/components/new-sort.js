@@ -1,14 +1,14 @@
 import '../App.css';
-import { Container, Nav, Navbar, Modal, Dropdown } from 'react-bootstrap'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 // import '../css/styles.css'
 import {useEffect} from 'react'
-import { useState } from 'react';
+// import { useState } from 'react';
 
 function Sort() {
     let arr, step;
     let sorted = false;
     let searchActive = false;
-    let stopSort = false
+    // let stopSort = false
     let numBars = 50;
     let sorts = {
         cyclic: {
@@ -39,7 +39,7 @@ function Sort() {
 
     useEffect(() => {
         placeSquares()
-    }, [])
+    })
  
     // maybe just call sort algorithms here and doSort() can literally just... do sort
     function placeSquares() {
@@ -76,7 +76,7 @@ function Sort() {
     }
     function shuffle(array) {
         let currentIndex = array.length,  randomIndex;
-        while (currentIndex != 0) {
+        while (currentIndex !== 0) {
           randomIndex = Math.floor(Math.random() * currentIndex);
           currentIndex--;    
           [array[currentIndex], array[randomIndex]] = [
@@ -108,7 +108,7 @@ function Sort() {
         searchActive = true;
         let sortInterval = setInterval(() => {
             for (let sort in sorts) {
-                if (step == sorts[sort].pairs.length) {
+                if (step === sorts[sort].pairs.length) {
                     for (let i = 0; i < sorts[sort].unsorted.length; i++) {
                         let bar = document.getElementById(`${sort}-bar-${i}`)
                         bar.classList.toggle("bar")
@@ -117,7 +117,7 @@ function Sort() {
                     }
                 }
             }
-            if (step == max_length) {
+            if (step === max_length) {
                 sorted = true;
                 searchActive = false;
                 clearInterval(sortInterval)

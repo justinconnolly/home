@@ -25,7 +25,7 @@ root.render(
           <Nav.Link href="/home/">Home</Nav.Link>
           <Nav.Link href="/home/visualizer">Pathfinding</Nav.Link>
           <Nav.Link href="/home/sort">Sorting</Nav.Link>
-          <Nav.Link href="/home/about">About Me</Nav.Link>
+          <Nav.Link href="/home/about">CV</Nav.Link>
         </Nav>     
       </Navbar.Collapse>
       </Container>

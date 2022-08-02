@@ -184,3 +184,21 @@ code {
 .complete {
   background: lawngreen;
 }
+
+.resume-table {
+  width: 80%;
+  text-align: left;
+  border: none;
+}
+
+.profile-experience-duration {
+  vertical-align: top;
+  border: none;
+}
+
+.profile-experience-entry {
+  border: none;
+}
+.profile-experience-content {
+  border: none;
+}
