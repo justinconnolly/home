@@ -9,7 +9,7 @@ function Home() {
       <Container>
         Hi, I'm Justin. I'm a fourth year student in the Bachelor of Computer Science program at Carleton University in Ottawa, Ontario.
         I'm currently in the Accelerated MCS prepatory program, allowing me to take graduate courses this upcoming year.
-        I like algorithm design, graphs, and pretty much anything that can be a puzzle.
+        I like algorithm design, graphs, combinatorics, and pretty much anything that can be a puzzle.
       </Container>
     </div>
   );

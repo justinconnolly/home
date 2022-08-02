@@ -14,6 +14,7 @@ function About() {
     return result;
 }
   let resume = {
+    // WORK
     work: [
       {
         title: 'Test Engineer Co-op',
@@ -50,12 +51,43 @@ function About() {
                     'Implemented biochemical and molecular biology lab techniques such as PCR, affinity chromatography, and Western blots to validate predicted protein-protein interactions.']
       }
     ],
+    // EDUCATION
     education: [
       {
         title: 'Bachelor of Computer Science',
         company: 'Carleton University',
         description: ['GPA 11.7/12'],
-        duration: 'Anticipated graduation - August 2023'
+        duration: 'Anticipated graduation - May 2023'
+      }
+    ],
+    // AWARDS
+    awards: [
+      {
+        title: 'NSERC USRA',
+        description: ['Competitive GPA and merit-based award for paid summer research.'],
+        duration: 'May - August 2018'
+      },
+      {
+        title: "Dean's List",
+        description: ['Financial award for high academic success.'],
+        duration: '2016 - 17, 2017 - 18, 2021 - 2022'
+
+      }
+    ],
+    // Publications
+    publications: [
+      {
+        authors: "K. K. Biggar, F. Charih, H. Liu, Y. B. Ruiz-Blanco, L. Stalker, A. Chopra, J. Connolly, H. Adhikary, K. Frensemier, M. Hoekstra, M. Galka, Q. Fang, C. Wynder, W. L. Stanford, J. R. Green, and S. S. Li,",
+        title: "Proteome-wide Prediction of Lysine Methylation Leads to Identification of H2BK43 Methylation and Outlines the Potential Methyllysine Proteome,",
+        journal: "Cell Reports,",
+        journal_info: "vol. 32, no. 2, p. 107896, 2020"
+
+      },
+      {
+        authors: 'Z. Wu, J. Connolly, and K. K. Biggar,',
+        title: "Beyond histones – the expanding roles of protein lysine methylation,",
+        journal: "FEBS Journal,",
+        journal_info: "vol. 284, no. 17, pp. 2732–2744, 2017"
       }
     ]
   }
@@ -99,6 +131,36 @@ function About() {
                           <p key={"experience-description-" + makeid(5)}>{entry}</p>
                         )
                       })}
+                      </div>
+                    </td>
+                    </tr>
+                    )
+                })}
+                <tr><td className="profile-experience-entry"><h5>Awards</h5></td></tr>
+                {resume.awards.map(section => {
+                  return (
+                  <tr key={"profile-experience-" + makeid(5)} className="profile-experience-entry">
+                    <td key={"profile-duration-" + makeid(5)} className="profile-experience-duration"><span className="profile-experience-duration">{section.duration}</span></td>
+                    <td key={"profile-experience-content-" + makeid(5)} className="profile-experience-content">
+                      <div><strong>{section.title}</strong></div>
+                      <div key={"profile-experience-description-" + makeid(5)}>
+                      {section.description.map(entry => {
+                        return (
+                          <p key={"experience-description-" + makeid(5)}>{entry}</p>
+                        )
+                      })}
+                      </div>
+                    </td>
+                    </tr>
+                    )
+                })}
+                <tr><td className="profile-experience-entry"><h5>Publications</h5></td></tr>
+                {resume.publications.map(section => {
+                  return (
+                  <tr key={"profile-experience-" + makeid(5)} className="profile-experience-entry">
+                    <td key={"profile-experience-content-" + makeid(5)} className="profile-experience-content" colSpan={2}>
+                      <div key={"profile-experience-description-" + makeid(5)}>
+                      {section.authors} {'"' + section.title + '"'} <em>{section.journal}</em> {section.journal_info}
                       </div>
                     </td>
                     </tr>
