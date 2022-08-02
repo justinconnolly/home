@@ -33,7 +33,8 @@ function About() {
         title: 'Student Research Internship',
         company: 'Carleton Univeristy',
         duration: 'December 2021 - January 2022',
-        description: ["Designed, tested, and implemented novel problems in Java for Carleton’s second year Abstract Data Types and Algorithms course. Included implementation of an automated testing server which accepted and graded student submissions based on time and/or space complexities."]
+        description: ["Designed, tested, and implemented novel problems in Java for Carleton’s second year Abstract Data Types and Algorithms course.",
+                    "Included implementation of an automated testing server which accepted and graded student submissions based on time and/or space complexities."]
       },
       {
         title: 'Student Research Internship',
