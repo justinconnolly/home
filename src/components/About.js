@@ -20,7 +20,7 @@ function About() {
         company: 'Nokia',
         duration: 'May - August 2022',
         description: ['Modernized core testing suites for service routing hardware by migrating from TCL to Python.',
-                      'Reduced runtime of existing test suites by up to 50% by optimizing framework.']
+                      'Reduced runtime of existing Python test suites by up to 50% by optimizing framework.']
       },
       {
         title: 'Teaching Assistant',
