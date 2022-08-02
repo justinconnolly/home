@@ -25,14 +25,14 @@ function About() {
       },
       {
         title: 'Teaching Assistant',
-        company: 'Carleton Univeristy',
+        company: 'Carleton University',
         duration: 'June 2021 - April 2022',
         description: ['COMP2402 - Abstract Data Types and Algorithms: Ran weekly tutorials and workshops designed to help students understand different data structures, their respective advantages and drawbacks, and related algorithms.',
                       'COMP1406/1006 - Introduction to Computer Science II: Ran weekly 3-hour tutorials for undergraduate students, hosted weekly office hours, and graded assignments submitted in Java.']
       },
       {
         title: 'Student Research Internship',
-        company: 'Carleton Univeristy',
+        company: 'Carleton University',
         duration: 'December 2021 - January 2022',
         description: ["Designed, tested, and implemented novel problems in Java for Carleton’s second year Abstract Data Types and Algorithms course.",
                     "Included implementation of an automated testing server which accepted and graded student submissions based on time and/or space complexities."]
