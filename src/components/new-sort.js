@@ -1,8 +1,9 @@
 import '../App.css';
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container, Nav, Navbar, Modal } from 'react-bootstrap'
 // import '../css/styles.css'
 import {useEffect} from 'react'
-// import { useState } from 'react';
+import { useState } from 'react';
+import { MathComponent } from 'mathjax-react';
 
 function Sort() {
     let arr, step;
@@ -10,40 +11,67 @@ function Sort() {
     let searchActive = false;
     // let stopSort = false
     let numBars = 50;
+    // let clicked_sort;
+    const [clickedSort, setClickedSort] = useState('cyclic')
+    const [instructions, setInstructions] = useState(false)
+    const [welcome, setWelcome] = useState(true)
+
+
     let sorts = {
         cyclic: {
             algorithm: cyclicSort,
             pairs: [],
             unsorted: [],
             complete: false,
-            name: 'Cyclic Sort'
+            name: 'Cyclic Sort',
+            stats: {
+                average: <MathComponent tex={String.raw`O(n^2)`} />,
+                worst: <MathComponent tex={String.raw`O(n^2)`} />,
+                description: ['This implementation of cycle sort iterate through the list, if the current item is misplaced then it will be swapped with the item in its proper location. This cycling process will continue until the correct item is in the index of interest, at which point the algorithm will move to the next index.']
+            }
         },
         quick: {
             algorithm: quickSort,
             pairs: [],
             unsorted: [],
             complete: false,
-            name: 'Quick Sort'
+            name: 'Quick Sort',
+            stats: {
+                average: <MathComponent tex={String.raw`O(n \log n)`} />,
+                worst: <MathComponent tex={String.raw`O(n^2)`} />,
+                description: ['The defacto default sort, quicksort is ubiquitous. A comparison-based sort, quicksort is favoured for its relatively small number of comparisons and minimal memory requirements.']
+            }
         },
         heap: {
             algorithm: heapSort,
             pairs: [],
             unsorted: [],
             complete: false,
-            name: 'Heap Sort'
+            name: 'Heap Sort',
+            stats: {
+                average: <MathComponent tex={String.raw`O(n \log n)`} />,
+                worst: <MathComponent tex={String.raw`O(n \log n)`} />,
+                description: ['A comparison-based sort, heapsort maintains an unsorted heap region which is merged into the sorted region as the list is heapified.']
+            }
         },
         insertion: {
             algorithm: insertionSort,
             pairs: [],
             unsorted: [],
             complete: false,
-            name: 'Insertion Sort'
+            name: 'Insertion Sort',
+            stats: {
+                // average: 'O(n^2)',
+                average: <MathComponent tex={String.raw`O(n^2)`} />,
+                worst: <MathComponent tex={String.raw`O(n^2)`} />,
+                description: ['A comparison-based sort, insertion sort iterates left to right, with the growing left region being sorted. If the next value is smaller than the largest value in the left region, the new value will be moved one index position down. This process is repeated until the entire list is sorted.']
+            }
         }
     };
 
     useEffect(() => {
         placeSquares()
-    })
+    }, [])
  
     // maybe just call sort algorithms here and doSort() can literally just... do sort
     function placeSquares() {
@@ -61,29 +89,37 @@ function Sort() {
         for (let sort in sorts) {
             let sort_div = document.createElement("div")
             sort_div.classList.add("sort-div")
+
             let table = document.createElement("table");
             table.classList.add("sort")
+
             let row = document.createElement("tr");
+            row.id = `sort-row-${sort}`;
+
             let title = document.createElement("div")
             title.innerText = sorts[sort].name
             title.classList.add("sort-title")
-            row.id = `sort-row-${sort}`;
+
             for (let i = 0; i < numBars; i++) {
                 let col = document.createElement("td");
                 col.classList.add("sort-col");
+
                 let div = document.createElement("div")
                 div.classList.add("incomplete")
                 div.classList.add("bar")
                 div.style.height = `${((arr[i]+ 1) / numBars) * 100}%`
                 div.id = `${sort}-bar-${i}`
+
                 col.appendChild(div)
                 row.appendChild(col)
             }
-            // container.append(title)
             table.appendChild(row)
-            // container.appendChild(table)
             sort_div.appendChild(title)
             sort_div.appendChild(table)
+            sort_div.addEventListener('click', (e) => {
+                setClickedSort(sort)
+                setInstructions(true)
+            })
             container.appendChild(sort_div)
         }
     }
@@ -285,8 +321,18 @@ function Sort() {
             </Container>
         </Navbar>
         <Container>
-        <div id ="sortContainer">
-        </div>
+            <Modal id="modal-popup" show={instructions} onHide={() => setInstructions(false)}>
+                <Modal.Header closeButton><h3>{sorts[clickedSort].name}</h3></Modal.Header>
+                <Modal.Body>Average performance: {sorts[clickedSort].stats.average} <br/>
+                            Worst-case performance: {sorts[clickedSort].stats.worst}
+                            {sorts[clickedSort].stats.description}</Modal.Body>
+            </Modal>
+            <Modal id="modal-popup" show={welcome} onHide={() => setWelcome(false)}>
+                <Modal.Header closeButton><h3>Sorting</h3></Modal.Header>
+                <Modal.Body>Click a graph to learn more about its sorting technique, then click Begin! when you're ready.</Modal.Body>
+            </Modal>
+            <div id ="sortContainer">
+            </div>
         </Container>
     </>
   );
