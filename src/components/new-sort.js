@@ -19,7 +19,7 @@ function Sort() {
             name: 'Cyclic Sort'
         },
         quick: {
-            algorithm: quick_sort,
+            algorithm: quickSort,
             pairs: [],
             unsorted: [],
             complete: false,
@@ -191,19 +191,19 @@ function Sort() {
 
 
 
-    function quick_sort(qs_arr) {
-        quickSort(qs_arr, 0, sorts.quick.unsorted.length - 1)
+    function quickSort(qs_arr) {
+        quick_sort(qs_arr, 0, sorts.quick.unsorted.length - 1)
     }
-    function quickSort (A, left, right) {
+    function quick_sort (A, left, right) {
         if (left >= right || right < 0) {
             return;
         }
         const position = partition(A, left, right)
         if (left < position - 1) {
-            quickSort(A, left, position - 1)
+            quick_sort(A, left, position - 1)
         }
         if (position < right) {
-            quickSort(A, position, right)
+            quick_sort(A, position, right)
         }
       }
       
