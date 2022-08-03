@@ -15,25 +15,29 @@ function Sort() {
             algorithm: cyclicSort,
             pairs: [],
             unsorted: [],
-            complete: false
+            complete: false,
+            name: 'Cyclic Sort'
         },
         quick: {
             algorithm: quick_sort,
             pairs: [],
             unsorted: [],
-            complete: false
+            complete: false,
+            name: 'Quick Sort'
         },
         heap: {
             algorithm: heapSort,
             pairs: [],
             unsorted: [],
-            complete: false
+            complete: false,
+            name: 'Heap sort'
         },
         insertion: {
             algorithm: insertionSort,
             pairs: [],
             unsorted: [],
-            complete: false
+            complete: false,
+            name: 'Insertion Sort'
         }
     };
 
@@ -55,23 +59,32 @@ function Sort() {
         }
         shuffle(arr);
         for (let sort in sorts) {
+            let sort_div = document.createElement("div")
+            sort_div.classList.add("sort-div")
             let table = document.createElement("table");
             table.classList.add("sort")
             let row = document.createElement("tr");
+            let title = document.createElement("div")
+            title.innerText = sorts[sort].name
+            title.classList.add("sort-title")
             row.id = `sort-row-${sort}`;
             for (let i = 0; i < numBars; i++) {
                 let col = document.createElement("td");
                 col.classList.add("sort-col");
-
                 let div = document.createElement("div")
+                div.classList.add("incomplete")
                 div.classList.add("bar")
                 div.style.height = `${((arr[i]+ 1) / numBars) * 100}%`
                 div.id = `${sort}-bar-${i}`
                 col.appendChild(div)
                 row.appendChild(col)
             }
+            // container.append(title)
             table.appendChild(row)
-            container.appendChild(table)
+            // container.appendChild(table)
+            sort_div.appendChild(title)
+            sort_div.appendChild(table)
+            container.appendChild(sort_div)
         }
     }
     function shuffle(array) {
@@ -111,7 +124,7 @@ function Sort() {
                 if (step === sorts[sort].pairs.length) {
                     for (let i = 0; i < sorts[sort].unsorted.length; i++) {
                         let bar = document.getElementById(`${sort}-bar-${i}`)
-                        bar.classList.toggle("bar")
+                        bar.classList.toggle("incomplete")
                         bar.classList.add("complete")
                         sorts[sort].complete = true;
                     }

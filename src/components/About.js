@@ -41,7 +41,7 @@ function About() {
         title: 'Student Research Internship',
         company: 'Carleton University',
         duration: 'September 2020 - January 2021',
-        description: ['Designed and implemented an algorithm in Python to generate randomized functional DNA sequences along with associated unique questions for a second year genetics course.']
+        description: ['Designed and implemented a program in Python to generate randomized functional DNA sequences along with associated unique multiple choice questions and answers for a second year genetics course.']
       },
       {
         title: 'NSERC USRA Student Researcher',
