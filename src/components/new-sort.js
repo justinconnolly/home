@@ -30,7 +30,7 @@ function Sort() {
             pairs: [],
             unsorted: [],
             complete: false,
-            name: 'Heap sort'
+            name: 'Heap Sort'
         },
         insertion: {
             algorithm: insertionSort,
