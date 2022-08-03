@@ -11,7 +11,6 @@ function Sort() {
     let searchActive = false;
     // let stopSort = false
     let numBars = 50;
-    // let clicked_sort;
     const [clickedSort, setClickedSort] = useState('cyclic')
     const [instructions, setInstructions] = useState(false)
     const [welcome, setWelcome] = useState(true)
@@ -61,7 +60,6 @@ function Sort() {
             complete: false,
             name: 'Insertion Sort',
             stats: {
-                // average: 'O(n^2)',
                 average: <MathComponent tex={String.raw`O(n^2)`} />,
                 worst: <MathComponent tex={String.raw`O(n^2)`} />,
                 description: ['A comparison-based sort, insertion sort iterates left to right, with the growing left region being sorted. If the next value is smaller than the largest value in the left region, the new value will be moved one index position down. This process is repeated until the entire list is sorted.']
@@ -186,9 +184,7 @@ function Sort() {
         for (let i = 1; i < numCols; i++) {
             let curr = document.getElementById(`bar-${i}`)
             let prev = document.getElementById(`bar-${i - 1}`)
-
             if (curr.style.height < prev.style.height)  {
-                console.log("NOT sorted")
                 return false
             }
         }
