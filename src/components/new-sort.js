@@ -9,12 +9,16 @@ function Sort() {
     let arr, step;
     let sorted = false;
     let searchActive = false;
+    let first = true
     // let stopSort = false
     let numBars = 50;
     const [clickedSort, setClickedSort] = useState('cyclic')
     const [instructions, setInstructions] = useState(false)
     const [welcome, setWelcome] = useState(true)
 
+    useEffect(() => {
+            placeSquares()
+    })
 
     let sorts = {
         cyclic: {
@@ -67,12 +71,11 @@ function Sort() {
         }
     };
 
-    useEffect(() => {
-        placeSquares()
-    }, [])
+
  
     // maybe just call sort algorithms here and doSort() can literally just... do sort
     function placeSquares() {
+        first = false;
         arr = [];
         step = 0;
         sorted = false;
