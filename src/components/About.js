@@ -118,7 +118,7 @@ function About() {
                   </tr>
                   )
                 })}
-                <tr><td className="profile-experience-entry"><h5>Work Experience</h5></td></tr>
+                <tr><td className="profile-experience-entry"><h5>Employment</h5></td></tr>
                 {resume.work.map(section => {
                   return (
                   <tr key={"profile-experience-" + makeid(5)} className="profile-experience-entry">
