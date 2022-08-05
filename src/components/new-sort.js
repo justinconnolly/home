@@ -118,8 +118,11 @@ function Sort() {
             sort_div.appendChild(title)
             sort_div.appendChild(table)
             sort_div.addEventListener('click', (e) => {
-                setClickedSort(sort)
-                setInstructions(true)
+                if (!searchActive) {
+                    setClickedSort(sort)
+                    setInstructions(true)
+                }
+
             })
             container.appendChild(sort_div)
         }
