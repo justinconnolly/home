@@ -49,7 +49,13 @@ function About() {
         duration: 'May - August 2018',
         description: ['Deployed computational techniques (eg. sequence alignments) to identify novel protein-protein interactions in the human proteome.',
                     'Implemented biochemical and molecular biology lab techniques such as PCR, affinity chromatography, and Western blots to validate predicted protein-protein interactions.']
-      }
+      },
+      {
+        title: 'Bartender',
+        company: 'Blue Cactus Bar and Grill',
+        duration: 'October 2011 - January 2022',
+        description: ['Provided high standard of service in fast-paced and high-stress environment.', 'Developed customer loyalty through friendly interactions', 'Managed inventory and cash/credit transactions.']
+      },
     ],
     // EDUCATION
     education: [
